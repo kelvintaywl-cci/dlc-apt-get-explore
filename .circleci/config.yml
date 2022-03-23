@@ -1,0 +1,20 @@
+version: 2.1
+
+jobs:
+  build-image:
+    parameters:
+      tag:
+        type: string
+        default: aptgetexplore
+    machine:
+      docker_layer_caching: true
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          docker build --tag << parameters.tag >> .
+ 
+ workflows:
+   docker:
+     jobs:
+       - build-image
